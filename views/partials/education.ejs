@@ -1,9 +1,9 @@
-<section id="education" style="margin-top: 100px; padding-bottom: 50px;">
+<section id="education" style="margin-top: 80px; padding-bottom: 50px;">
     <div class="education-layout">
         
         <!-- LEFT COLUMN: EDUCATION TIMELINE -->
         <div class="edu-main">
-            <h2 class="section-title" style="font-size: 2.5rem; display: flex; align-items: center; gap: 20px;">
+            <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 2.5rem); display: flex; align-items: center; gap: 15px; margin-bottom: 40px;">
                <span class="accent-num">04.</span> Education
             </h2>
     
@@ -46,6 +46,7 @@
 </section>
 
 <style>
+    /* Desktop Grid Layout */
     .education-layout {
         display: grid;
         grid-template-columns: 1.8fr 1fr;
@@ -55,8 +56,8 @@
     .accent-num { color: var(--flutter-cyan); }
     
     /* Timeline Logic */
-    .education-list { display: flex; flex-direction: column; gap: 20px; }
-    .edu-item { display: flex; gap: 25px; }
+    .education-list { display: flex; flex-direction: column; gap: 10px; }
+    .edu-item { display: flex; gap: 20px; }
 
     .edu-visual {
         display: flex;
@@ -66,8 +67,8 @@
     }
 
     .edu-dot {
-        width: 44px;
-        height: 44px;
+        width: 40px;
+        height: 40px;
         background: rgba(2, 123, 227, 0.1);
         border: 1px solid var(--flutter-cyan);
         border-radius: 10px;
@@ -75,117 +76,110 @@
         align-items: center;
         justify-content: center;
         color: var(--flutter-cyan);
+        font-size: 0.9rem;
     }
 
     .edu-connector {
         width: 2px;
         flex-grow: 1;
         background: linear-gradient(to bottom, var(--flutter-cyan), transparent);
-        margin: 10px 0;
-        opacity: 0.3;
+        margin: 8px 0;
+        opacity: 0.2;
     }
 
     /* Card UI */
     .edu-card {
         background: rgba(255, 255, 255, 0.02);
         border: 1px solid rgba(255, 255, 255, 0.07);
-        padding: 24px;
+        padding: 20px;
         border-radius: 16px;
         flex-grow: 1;
-        transition: 0.3s;
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 0; /* Prevents overflow */
     }
 
     .edu-card:hover {
         background: rgba(255, 255, 255, 0.04);
         border-color: var(--flutter-cyan);
-        transform: translateX(8px);
+        transform: translateX(5px);
     }
 
     .edu-card-header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 12px;
+        gap: 10px;
     }
 
     .edu-type-tag {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         text-transform: uppercase;
         background: rgba(2, 123, 227, 0.2);
         color: var(--flutter-cyan);
-        padding: 2px 10px;
+        padding: 3px 10px;
         border-radius: 4px;
         font-weight: bold;
+        white-space: nowrap;
     }
 
-    .edu-timeline { color: #666; font-family: monospace; font-size: 0.85rem; }
-    .edu-degree-title { font-size: 1.4rem; color: #fff; margin-bottom: 4px; }
-    .edu-university-name { color: #bbb; font-weight: 500; margin-bottom: 12px; }
+    .edu-timeline { 
+        color: #666; 
+        font-family: 'Space Mono', monospace; 
+        font-size: 0.8rem; 
+        white-space: nowrap;
+    }
+
+    .edu-degree-title { 
+        font-size: clamp(1.1rem, 3vw, 1.4rem); 
+        color: #fff; 
+        margin-bottom: 6px; 
+        line-height: 1.3;
+    }
+
+    .edu-university-name { 
+        color: #bbb; 
+        font-weight: 500; 
+        margin-bottom: 15px; 
+        font-size: 0.95rem;
+    }
 
     .edu-college-box {
         display: flex;
-        align-items: center;
-        gap: 8px;
+        align-items: flex-start;
+        gap: 10px;
         font-size: 0.85rem;
         color: #888;
-        background: rgba(0,0,0,0.2);
-        padding: 8px 12px;
-        border-radius: 8px;
+        background: rgba(0,0,0,0.15);
+        padding: 10px 12px;
+        border-radius: 10px;
         margin-bottom: 15px;
     }
+    .edu-college-box i { margin-top: 3px; color: var(--flutter-cyan); opacity: 0.7; }
 
-    .edu-spec-row { font-size: 0.9rem; }
+    .edu-spec-row { font-size: 0.85rem; display: flex; flex-wrap: wrap; }
     .edu-spec-row .label { color: #555; margin-right: 8px; }
-    .edu-spec-row .value { color: var(--flutter-cyan); }
+    .edu-spec-row .value { color: var(--flutter-cyan); font-weight: 500; }
 
-    /* Sidebar Widgets */
-    .sidebar-widget {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
-        padding: 25px;
-    }
-
-    .widget-title {
-        font-size: 1rem;
-        color: var(--flutter-cyan);
-        letter-spacing: 1.5px;
-        margin-bottom: 25px;
-        border-left: 3px solid var(--flutter-cyan);
-        padding-left: 15px;
-    }
-
-    .contact-item { display: flex; gap: 15px; margin-bottom: 20px; }
-    .contact-item i { color: var(--flutter-cyan); font-size: 1.1rem; margin-top: 4px; }
-    .c-label { font-size: 0.75rem; color: #555; text-transform: uppercase; margin: 0; }
-    .c-text { color: #ccc; margin: 2px 0 0; line-height: 1.4; font-size: 0.9rem; }
-    .c-text a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
-    .c-text a:hover { border-color: var(--flutter-cyan); }
-
-    .award-pill {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        background: rgba(255, 215, 0, 0.03);
-        border: 1px solid rgba(255, 215, 0, 0.1);
-        padding: 15px;
-        border-radius: 12px;
-    }
-
-    .award-icon {
-        width: 35px;
-        height: 35px;
-        background: rgba(255, 215, 0, 0.1);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #FFD700;
-    }
-
-    .award-name { color: #fff; font-weight: 600; font-size: 0.9rem; margin: 0; }
-    .award-org { font-size: 0.75rem; color: #777; margin: 2px 0 0; }
-
+    /* Responsive Queries */
     @media (max-width: 992px) {
-        .education-layout { grid-template-columns: 1fr; }
+        .education-layout { grid-template-columns: 1fr; gap: 30px; }
+    }
+
+    @media (max-width: 600px) {
+        #education { margin-top: 60px !important; }
+        .edu-item { gap: 15px; }
+        .edu-dot { width: 34px; height: 34px; font-size: 0.8rem; }
+        .edu-card { padding: 16px; }
+        .edu-card-header { flex-direction: row; justify-content: space-between; }
+        .edu-timeline { font-size: 0.75rem; }
+        .edu-university-name { font-size: 0.85rem; }
+    }
+
+    /* Print Logic (Maintain Dark Background as per previous requirement) */
+    @media print {
+        #education { margin-top: 30px !important; }
+        .edu-card { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; }
+        .edu-dot { background: rgba(2, 123, 227, 0.1) !important; -webkit-print-color-adjust: exact; }
     }
 </style>
