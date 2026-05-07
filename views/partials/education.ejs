@@ -1,0 +1,191 @@
+<section id="education" style="margin-top: 100px; padding-bottom: 50px;">
+    <div class="education-layout">
+        
+        <!-- LEFT COLUMN: EDUCATION TIMELINE -->
+        <div class="edu-main">
+            <h2 class="section-title" style="font-size: 2.5rem; display: flex; align-items: center; gap: 20px;">
+               <span class="accent-num">04.</span> Education
+            </h2>
+    
+            <div class="education-list">
+                <% data.education.forEach(function(edu, i) { %>
+                    <div class="edu-item reveal" style="transition-delay: <%= i * 0.1 %>s">
+                        <div class="edu-visual">
+                            <div class="edu-dot">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="edu-connector"></div>
+                        </div>
+
+                        <div class="edu-card">
+                            <div class="edu-card-header">
+                                <span class="edu-type-tag">Degree</span>
+                                <span class="edu-timeline"><%= edu.year %></span>
+                            </div>
+                            
+                            <h3 class="edu-degree-title"><%= edu.degree %></h3>
+                            <p class="edu-university-name"><%= edu.university %></p>
+                            
+                            <% if(edu.college) { %>
+                                <div class="edu-college-box">
+                                    <i class="fas fa-university"></i>
+                                    <span><%= edu.college %></span>
+                                </div>
+                            <% } %>
+
+                            <div class="edu-spec-row">
+                                <span class="label">Major:</span>
+                                <span class="value"><%= edu.specialization %></span>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .education-layout {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr;
+        gap: 50px;
+    }
+
+    .accent-num { color: var(--flutter-cyan); }
+    
+    /* Timeline Logic */
+    .education-list { display: flex; flex-direction: column; gap: 20px; }
+    .edu-item { display: flex; gap: 25px; }
+
+    .edu-visual {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .edu-dot {
+        width: 44px;
+        height: 44px;
+        background: rgba(2, 123, 227, 0.1);
+        border: 1px solid var(--flutter-cyan);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--flutter-cyan);
+    }
+
+    .edu-connector {
+        width: 2px;
+        flex-grow: 1;
+        background: linear-gradient(to bottom, var(--flutter-cyan), transparent);
+        margin: 10px 0;
+        opacity: 0.3;
+    }
+
+    /* Card UI */
+    .edu-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 24px;
+        border-radius: 16px;
+        flex-grow: 1;
+        transition: 0.3s;
+    }
+
+    .edu-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--flutter-cyan);
+        transform: translateX(8px);
+    }
+
+    .edu-card-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+
+    .edu-type-tag {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        background: rgba(2, 123, 227, 0.2);
+        color: var(--flutter-cyan);
+        padding: 2px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+    .edu-timeline { color: #666; font-family: monospace; font-size: 0.85rem; }
+    .edu-degree-title { font-size: 1.4rem; color: #fff; margin-bottom: 4px; }
+    .edu-university-name { color: #bbb; font-weight: 500; margin-bottom: 12px; }
+
+    .edu-college-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: #888;
+        background: rgba(0,0,0,0.2);
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .edu-spec-row { font-size: 0.9rem; }
+    .edu-spec-row .label { color: #555; margin-right: 8px; }
+    .edu-spec-row .value { color: var(--flutter-cyan); }
+
+    /* Sidebar Widgets */
+    .sidebar-widget {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 25px;
+    }
+
+    .widget-title {
+        font-size: 1rem;
+        color: var(--flutter-cyan);
+        letter-spacing: 1.5px;
+        margin-bottom: 25px;
+        border-left: 3px solid var(--flutter-cyan);
+        padding-left: 15px;
+    }
+
+    .contact-item { display: flex; gap: 15px; margin-bottom: 20px; }
+    .contact-item i { color: var(--flutter-cyan); font-size: 1.1rem; margin-top: 4px; }
+    .c-label { font-size: 0.75rem; color: #555; text-transform: uppercase; margin: 0; }
+    .c-text { color: #ccc; margin: 2px 0 0; line-height: 1.4; font-size: 0.9rem; }
+    .c-text a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
+    .c-text a:hover { border-color: var(--flutter-cyan); }
+
+    .award-pill {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        background: rgba(255, 215, 0, 0.03);
+        border: 1px solid rgba(255, 215, 0, 0.1);
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .award-icon {
+        width: 35px;
+        height: 35px;
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFD700;
+    }
+
+    .award-name { color: #fff; font-weight: 600; font-size: 0.9rem; margin: 0; }
+    .award-org { font-size: 0.75rem; color: #777; margin: 2px 0 0; }
+
+    @media (max-width: 992px) {
+        .education-layout { grid-template-columns: 1fr; }
+    }
+</style>

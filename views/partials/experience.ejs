@@ -1,0 +1,64 @@
+<section style="margin-bottom: 12px;">
+    <!-- SECTION HEADING -->
+    <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 5px; display: flex; align-items: center; gap: 10px;">
+        <span style="color: var(--flutter-cyan);">03.</span> Experience 
+    </h2>
+
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+        <% data.experience.forEach(function(exp, index) { %>
+            <div class="project-card reveal" style="padding: 25px; display: block; position: relative;">
+                
+                <!-- TOP ROW: COMPANY & DATES -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <a href="<%= exp.website %>" target="_blank" class="company-link" style="color: var(--flutter-cyan); font-weight: 800; text-decoration: none; font-size: 1.8rem; display: flex; align-items: center; gap: 10px;">
+                            <%= exp.company %> <i class="fas fa-external-link-alt" style="font-size: 0.8rem; opacity: 0.5;"></i>
+                        </a>
+                        <!-- DESIGNATION / TITLE -->
+                        <p style="font-weight: 700; font-size: 1.1rem; color: #fff; margin-top: 5px; letter-spacing: 0.5px;">
+                            <%= exp.role %>
+                        </p>
+                    </div>
+
+                    <!-- DURATION TAG -->
+                    <div style="background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--flutter-cyan); font-weight: bold;">
+                            <%= exp.duration %>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- DESCRIPTION / DETAILS -->
+                <div style="border-left: 8px solid rgba(2, 123, 227, 0.2); padding-left: 20px; margin-top: 20px;">
+                    <p style="color: #aaa; font-size: 0.95rem; line-height: 1.8; white-space: pre-line;">
+                        <%= exp.details %>
+                    </p>
+                </div>
+
+                <!-- SUBTLE HOVER GLOW -->
+                <div class="card-glow"></div>
+            </div>
+        <% }); %>
+    </div>
+</section>
+
+<style>
+    .company-link {
+        transition: color 0.3s ease;
+    }
+    .company-link:hover {
+        color: #fff !important;
+    }
+    
+    /* Project Card Specific Override for Experience */
+    .project-card {
+        border-left: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .project-card:hover {
+        border-left: 8px solid var(--flutter-cyan);
+        background: rgba(2, 123, 227, 0.02);
+        padding-left: 52px; /* Slight push effect on hover */
+    }
+</style>

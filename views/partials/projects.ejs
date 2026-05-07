@@ -1,0 +1,277 @@
+<section>
+    <h2 class="section-title" style="font-size: 2.5rem; margin: 20px 0 50px; display: flex; align-items: center; gap: 20px;">
+        <span style="color: var(--flutter-cyan);">01.</span> Projects
+    </h2>
+    
+    <% data.projects.forEach(function(p, i) { 
+        const company = data.experience.find(e => e.id === p.companyId);
+        const hasScreenshots = p.screenshots && p.screenshots.length > 0;
+        const shortDescription = p.description.length > 320 ? p.description.substring(0, 320) + "..." : p.description;
+        const needsReadMore = p.description.length > 320;
+    %>
+
+    <div class="project-card reveal">
+        <!-- PHONE MOCKUP -->
+        <div class="phone-mockup">
+            <div class="mockup-content">
+                <% if(hasScreenshots) { %>
+                    <!-- NAV BUTTONS -->
+                    <% if(p.screenshots.length > 1) { %>
+                        <button class="phone-nav-btn left-btn" onclick="slidePhone('<%= i %>', -1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="phone-nav-btn right-btn" onclick="slidePhone('<%= i %>', 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    <% } %>
+
+                    <!-- SLIDER -->
+                    <div class="phone-slider-horizontal" id="phone-slider-<%= i %>">
+                        <% p.screenshots.forEach(function(ss) { %>
+                            <img src="<%= ss %>" class="phone-screen-img" alt="preview">
+                        <% }); %>
+                    </div>
+                <% } else if(p.logo) { %>
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; ">
+                        <img src="<%= p.logo %>" style="width: 80px; height: 80px; border-radius: 20px;" alt="app-logo">
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- PROJECT INFO -->
+        <div class="project-info" style="flex: 1; min-width: 0;">
+            <% if(company) { %>
+                <p class="widget-label">
+                    <a href="<%= company.website %>" target="_blank" style="color: var(--flutter-cyan); font-weight: bold; text-decoration: none;">
+                        <i class="fas fa-link"></i> <%= company.company %>
+                    </a>
+                    <span style="opacity: 0.5; margin-left: 10px;">/ <%= p.tag %></span>
+                </p>
+            <% } %>
+
+            <div class="title-row" style="display: flex; align-items: center; gap: 20px; margin-bottom: 15px;">
+    <% if(p.logo) { %>
+        <div class="logo-wrapper" style="
+            width: 58px; 
+            height: 58px; 
+            background: rgba(255, 255, 255, 0.03); 
+            background-color: #fff;
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 0.5px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            flex-shrink: 0; 
+        ">
+            <img 
+                src="<%= p.logo %>" 
+                style="
+                    width: 100%; 
+                    height: 100%; 
+                    object-fit: scale-down; 
+                    padding: 0px; /* Safe padding for brand logos */
+                " 
+                alt="<%= p.title %> logo"
+            >
+        </div>
+    <% } %>
+
+    <h3 style="
+        font-size: clamp(1.6rem, 4vw, 2.6rem); 
+        line-height: 1.1; 
+        font-weight: 800; 
+        color: #fff;
+        margin: 0;
+        letter-spacing: -0.5px;
+    ">
+        <%= p.title %>
+    </h3>
+</div>
+
+            <div class="description-wrapper">
+                <p id="desc-short-<%= i %>" class="description short-desc"><%= shortDescription %></p>
+                <div id="desc-full-<%= i %>" class="description full-desc"><p><%= p.description %></p></div>
+                <% if(needsReadMore) { %>
+                    <button class="read-more-btn" onclick="toggleDescription(<%= i %>)" id="btn-<%= i %>">
+                        <span id="btn-text-<%= i %>">Read More</span>
+                        <i id="btn-icon-<%= i %>" class="fas fa-chevron-down"></i>
+                    </button>
+                <% } %>
+            </div>
+
+            <!-- TECH STACK -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                <% if(p.tech) { p.tech.forEach(function(t) { %>
+                    <span class="tech-badge"><%= t %></span>
+                <% }); } %>
+            </div>
+
+            <!-- CLICKABLE SCREENSHOTS -->
+            <% if(hasScreenshots) { %>
+                <div class="screenshot-gallery">
+                    <% p.screenshots.forEach(function(ss, ssIndex) { %>
+                        <img 
+                            src="<%= ss %>" 
+                            class="ss-img" 
+                            alt="screenshot" 
+                            onclick="jumpToSlide('<%= i %>', <%= ssIndex %>)"
+                            style="cursor: pointer;"
+                        >
+                    <% }); %>
+                </div>
+            <% } %>
+
+            <div class="app-links">
+                <% if(p.android_link && p.android_link !== "#") { %>
+                    <a href="<%= p.android_link %>" target="_blank" class="app-btn">
+                        <i class="fab fa-android"></i> Play Store
+                    </a>
+                <% } %>
+                <% if(p.ios_link && p.ios_link !== "#") { %>
+                    <a href="<%= p.ios_link %>" target="_blank" class="app-btn">
+                        <i class="fab fa-apple"></i> App Store
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+</section>
+
+<style>
+    
+/* Logic and layout styles */
+.project-card { display: flex; gap: 40px; margin-bottom: 80px; align-items: flex-start; }
+@media (max-width: 992px) { .project-card { flex-direction: column; align-items: center; } }
+.app-links {
+    display: flex;
+    flex-direction: row; /* Force horizontal alignment */
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap; /* Prevents breaking on tiny screens */
+}
+
+.app-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.app-btn:hover {
+    background: var(--flutter-cyan);
+    color: #000;
+    border-color: var(--flutter-cyan);
+    transform: translateY(-3px);
+}
+
+.app-btn i { font-size: 1.2rem; }
+.tech-badge {
+    background: rgba(255,255,255,0.05);
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #eee;
+}
+
+.description-wrapper { margin: 18px 0 10px; }
+.description { color: #aaa; line-height: 1.85; overflow: hidden; }
+.short-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.full-desc { max-height: 0; opacity: 0; transform: translateY(-6px); transition: all 0.5s ease; }
+.full-desc.active { max-height: 1000px; opacity: 1; transform: translateY(0); }
+
+/* Screenshot Gallery Styling */
+.screenshot-gallery { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+.ss-img { width: 80px; height: 140px; object-fit: cover; border-radius: 8px; border: 2px solid transparent; transition: 0.3s; }
+.ss-img:hover { border-color: var(--flutter-cyan); transform: scale(1.05); }
+
+/* Phone Mockup Styling */
+.phone-mockup {
+    width: 240px; height: 500px; background: #111; border: 8px solid #222;
+    border-radius: 40px; flex-shrink: 0; position: relative; overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.phone-mockup::after {
+    content: ''; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 18px; background: #222; border-radius: 20px; z-index: 20;
+}
+.mockup-content { width: 100%; height: 100%; position: relative; border-radius: 30px; overflow: hidden; }
+.phone-slider-horizontal { display: flex; width: 100%; height: 100%; transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+.phone-screen-img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+
+.phone-nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px;
+    border-radius: 50%; border: none; background: rgba(0,0,0,0.55); color: white;
+    z-index: 30; cursor: pointer; backdrop-filter: blur(10px); transition: 0.3s;
+}
+.phone-nav-btn:hover { background: var(--flutter-cyan); color: #000; }
+.left-btn { left: 10px; } .right-btn { right: 10px; }
+
+.read-more-btn { background: transparent; border: none; color: var(--flutter-cyan); font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+
+@media (max-width: 768px) { .phone-mockup { width: 210px; height: 430px; } }
+</style>
+
+<script>
+const phoneSliderIndexes = {};
+
+// Slide using arrows
+function slidePhone(id, direction) {
+    const slider = document.getElementById(`phone-slider-${id}`);
+    if (!slider) return;
+    const totalSlides = slider.children.length;
+
+    if (phoneSliderIndexes[id] === undefined) phoneSliderIndexes[id] = 0;
+    
+    phoneSliderIndexes[id] += direction;
+
+    if (phoneSliderIndexes[id] < 0) phoneSliderIndexes[id] = totalSlides - 1;
+    if (phoneSliderIndexes[id] >= totalSlides) phoneSliderIndexes[id] = 0;
+
+    updateSliderTransform(id, slider);
+}
+
+// Jump to specific slide when tapping gallery image
+function jumpToSlide(projectId, slideIndex) {
+    const slider = document.getElementById(`phone-slider-${projectId}`);
+    if (!slider) return;
+
+    phoneSliderIndexes[projectId] = slideIndex;
+    updateSliderTransform(projectId, slider);
+}
+
+function updateSliderTransform(id, slider) {
+    slider.style.transform = `translateX(-${phoneSliderIndexes[id] * 100}%)`;
+}
+
+function toggleDescription(index) {
+    const shortDesc = document.getElementById(`desc-short-${index}`);
+    const fullDesc = document.getElementById(`desc-full-${index}`);
+    const btnText = document.getElementById(`btn-text-${index}`);
+    const btnIcon = document.getElementById(`btn-icon-${index}`);
+
+    const isOpen = fullDesc.classList.contains('active');
+    if (isOpen) {
+        fullDesc.classList.remove('active');
+        shortDesc.style.display = 'block';
+        btnText.innerText = 'Read More';
+        btnIcon.style.transform = 'rotate(0deg)';
+    } else {
+        fullDesc.classList.add('active');
+        shortDesc.style.display = 'none';
+        btnText.innerText = 'Read Less';
+        btnIcon.style.transform = 'rotate(180deg)';
+    }
+}
+</script>

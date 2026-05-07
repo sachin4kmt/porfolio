@@ -1,0 +1,602 @@
+<!-- 1. HERO SECTION HTML -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-wrapper">
+            
+            <!-- LEFT: TEXT CONTENT -->
+            <div class="hero-content">
+                <!-- Role/Designation with Terminal Style -->
+                <div class="widget-label reveal" style="letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; color: var(--flutter-cyan);">
+                    &gt; <%= data.role %>
+                </div>
+
+                <!-- Name with Gradient -->
+                <h1 class="hero-content">
+                    I'm <span class="gradient-text"><%= data.name %></span>
+                </h1>
+                
+                <p class="hero-summary reveal">
+                    <%= data.summary %>
+                </p>
+
+                <!-- Professional Metadata -->
+                <div class="hero-meta reveal">
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span><%= data.location %></span>
+                    </div>
+
+                    <div class="meta-item">
+                        <i class="fas fa-terminal"></i>
+                        <span><%= data.experience_years %> Experience</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="hero-btns reveal" style="display: flex; align-items: center; gap: 25px; margin-top: 20px;">
+                    <a href="mailto:<%= data.email %>" class="btn-primary">
+                        Get In Touch <i class="fas fa-envelope" style="font-size: 0.9rem; margin-left: 8px;"></i>
+                    </a>
+                    <a href="https://<%= data.linkedin %>" target="_blank" class="btn-linkedin">
+                        <i class="fab fa-linkedin" style="font-size: 1.1rem; margin-right: 8px;"></i>
+                        LinkedIn
+                    </a>
+                    
+                    <!-- PDF Export Fix -->
+                    <button onclick="window.print()" class="btn-secondary" style="cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); padding: 14px 28px; border-radius: 14px; display: inline-flex; align-items: center; gap: 8px; color: white;">
+                        <i class="fas fa-file-pdf" style="color: #ff4d4d;"></i>
+                        Export to PDF
+                    </button>
+
+                    <!-- Share Profile Fix -->
+                    <button onclick="sharePortfolio()" class="btn-linkedin" style="background: rgba(2, 123, 227, 0.1); border-color: var(--flutter-cyan); cursor: pointer; color: white;">
+                        <i class="fas fa-share-alt" style="margin-right: 8px;"></i> Share Profile
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: TECH SPEC CARD -->
+            <div class="hero-visual reveal">
+                <div class="tech-card">
+                    <div class="card-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span class="file-name">sachin_profile.dart</span>
+                    </div>
+                    <div class="card-body">
+                        <pre><code><span class="keyword">class</span> <span class="class-name">SeniorFlutterDev</span> {
+  <span class="comment">// Senior Mobile Engineer</span>
+  String name = <span class="string">'<%= data.name %>'</span>;
+  List&lt;String&gt; stack = [
+    <span class="string">'Clean Architecture'</span>,
+    <span class="string">'GetX'</span>,
+    <span class="string">'Dio'</span>
+  ];
+  
+  <span class="keyword">bool</span> isReadyToImpact = <span class="keyword">true</span>;
+}</code></pre>
+                    </div>
+                </div>
+                <div class="hero-glow"></div>
+            </div>
+        </div>
+    </div>
+</section>  
+
+<!-- 2. STYLES (Managed) -->
+<style>
+.btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(10, 102, 194, 0.1);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid rgba(10, 102, 194, 0.3);
+    transition: all 0.3s ease;
+}
+.hero {
+    padding: 60px 0 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    letter-spacing: -2px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, var(--flutter-cyan), #40D1FB);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-summary {
+    opacity: 0.8;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(2, 123, 227, 0.1);
+    border: 1px solid rgba(2, 123, 227, 0.2);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--flutter-cyan);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--flutter-cyan);
+    border-radius: 50%;
+    animation: pulse-ring 2s infinite;
+}
+
+.hero-meta {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 0px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    font-size: 0.9rem;
+    font-family: 'Space Mono', monospace;
+}
+
+.meta-item i { color: var(--flutter-cyan); }
+
+.btn-primary {
+    background: var(--flutter-cyan);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-smooth);
+}
+
+.btn-secondary {
+    margin-left: 0;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.tech-card {
+    transition: transform 0.5s ease;
+}
+.tech-card:hover {
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+}
+
+.card-header {
+    background: #1A1A1A;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dots { display: flex; gap: 6px; }
+.dots span { width: 10px; height: 10px; border-radius: 50%; background: #333; }
+.file-name { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #666; }
+
+.card-body { padding: 25px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+.keyword { color: #C678DD; }
+.class-name { color: #E5C07B; }
+.string { color: #98C379; }
+.comment { color: #5C6370; }
+
+.hero-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%; height: 120%;
+    background: radial-gradient(circle, rgba(2, 123, 227, 0.15) 0%, transparent 70%);
+    z-index: 1;
+}
+
+@keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(2, 123, 227, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(2, 123, 227, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(2, 123, 227, 0); }
+}
+
+@media (max-width: 600px) {
+    .hero-btns {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 15px !important;
+    }
+}
+
+/* PRINT SETTINGS */
+<!-- 1. HERO SECTION HTML -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-wrapper">
+            
+            <!-- LEFT: TEXT CONTENT -->
+            <div class="hero-content">
+                <!-- Role/Designation with Terminal Style -->
+                <div class="widget-label reveal" style="letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; color: var(--flutter-cyan);">
+                    &gt; <%= data.role %>
+                </div>
+
+                <!-- Name with Gradient -->
+                <h1 class="hero-content">
+                    I'm <span class="gradient-text"><%= data.name %></span>
+                </h1>
+                
+                <p class="hero-summary reveal">
+                    <%= data.summary %>
+                </p>
+
+                <!-- Professional Metadata -->
+                <div class="hero-meta reveal">
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span><%= data.location %></span>
+                    </div>
+
+                    <div class="meta-item">
+                        <i class="fas fa-terminal"></i>
+                        <span><%= data.experience_years %> Experience</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="hero-btns reveal" style="display: flex; align-items: center; gap: 25px; margin-top: 20px;">
+                    <a href="mailto:<%= data.email %>" class="btn-primary">
+                        Get In Touch <i class="fas fa-envelope" style="font-size: 0.9rem; margin-left: 8px;"></i>
+                    </a>
+                    <a href="https://<%= data.linkedin %>" target="_blank" class="btn-linkedin">
+                        <i class="fab fa-linkedin" style="font-size: 1.1rem; margin-right: 8px;"></i>
+                        LinkedIn
+                    </a>
+                    
+                    <!-- PDF Export Fix -->
+                    <button onclick="window.print()" class="btn-secondary" style="cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); padding: 14px 28px; border-radius: 14px; display: inline-flex; align-items: center; gap: 8px; color: white;">
+                        <i class="fas fa-file-pdf" style="color: #ff4d4d;"></i>
+                        Export to PDF
+                    </button>
+
+                    <!-- Share Profile Fix -->
+                    <button onclick="sharePortfolio()" class="btn-linkedin" style="background: rgba(2, 123, 227, 0.1); border-color: var(--flutter-cyan); cursor: pointer; color: white;">
+                        <i class="fas fa-share-alt" style="margin-right: 8px;"></i> Share Profile
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: TECH SPEC CARD -->
+            <div class="hero-visual reveal">
+                <div class="tech-card">
+                    <div class="card-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span class="file-name">sachin_profile.dart</span>
+                    </div>
+                    <div class="card-body">
+                        <pre><code><span class="keyword">class</span> <span class="class-name">SeniorFlutterDev</span> {
+  <span class="comment">// Senior Mobile Engineer</span>
+  String name = <span class="string">'<%= data.name %>'</span>;
+  List&lt;String&gt; stack = [
+    <span class="string">'Clean Architecture'</span>,
+    <span class="string">'GetX'</span>,
+    <span class="string">'Dio'</span>
+  ];
+  
+  <span class="keyword">bool</span> isReadyToImpact = <span class="keyword">true</span>;
+}</code></pre>
+                    </div>
+                </div>
+                <div class="hero-glow"></div>
+            </div>
+        </div>
+    </div>
+</section>  
+
+<!-- 2. STYLES (Managed) -->
+<style>
+.btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(10, 102, 194, 0.1);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid rgba(10, 102, 194, 0.3);
+    transition: all 0.3s ease;
+}
+.hero {
+    padding: 60px 0 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    letter-spacing: -2px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, var(--flutter-cyan), #40D1FB);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-summary {
+    opacity: 0.8;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(2, 123, 227, 0.1);
+    border: 1px solid rgba(2, 123, 227, 0.2);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--flutter-cyan);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--flutter-cyan);
+    border-radius: 50%;
+    animation: pulse-ring 2s infinite;
+}
+
+.hero-meta {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 0px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    font-size: 0.9rem;
+    font-family: 'Space Mono', monospace;
+}
+
+.meta-item i { color: var(--flutter-cyan); }
+
+.btn-primary {
+    background: var(--flutter-cyan);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-smooth);
+}
+
+.btn-secondary {
+    margin-left: 0;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.tech-card {
+    transition: transform 0.5s ease;
+}
+.tech-card:hover {
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+}
+
+.card-header {
+    background: #1A1A1A;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dots { display: flex; gap: 6px; }
+.dots span { width: 10px; height: 10px; border-radius: 50%; background: #333; }
+.file-name { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #666; }
+
+.card-body { padding: 25px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+.keyword { color: #C678DD; }
+.class-name { color: #E5C07B; }
+.string { color: #98C379; }
+.comment { color: #5C6370; }
+
+.hero-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%; height: 120%;
+    background: radial-gradient(circle, rgba(2, 123, 227, 0.15) 0%, transparent 70%);
+    z-index: 1;
+}
+
+@keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(2, 123, 227, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(2, 123, 227, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(2, 123, 227, 0); }
+}
+
+@media (max-width: 600px) {
+    .hero-btns {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 15px !important;
+    }
+}
+
+/* PRINT SETTINGS */
+@media print {
+    html, body {
+        background-color: #040d16 !important; /* Tera original dark bg */
+        color: white !important;
+        -webkit-print-color-adjust: exact !important; /* Chrome/Safari fix */
+        print-color-adjust: exact !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 2. SHOW EVERYTHING (GSAP Fix) */
+    .reveal, .hero-content, .hero-summary, .hero-meta, 
+    .project-card, .full-desc, .desc-full, .details-content {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        max-height: none !important;
+        transform: none !important;
+    }
+
+    /* 3. TEXT COLORS (Dark Mode in PDF) */
+    h1, h2, h3, .widget-label {
+        color: var(--flutter-cyan) !important;
+        -webkit-print-color-adjust: exact !important;
+    }
+
+    .gradient-text {
+        background: none !important;
+        color: var(--flutter-cyan) !important;
+        -webkit-text-fill-color: var(--flutter-cyan) !important;
+    }
+
+    p, span, li, code {
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    /* 4. CARDS & SECTIONS */
+    .project-card, .edu-card {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        page-break-inside: avoid;
+        margin-bottom: 20px !important;
+    }
+
+    /* 5. HIDE UI ELEMENTS */
+    nav, .hero-btns, .hero-glow, .phone-nav-btn, .read-more-btn, .dots, footer {
+        display: none !important;
+    }
+
+    /* 6. SCREENSHOTS GRID */
+    .screenshot-gallery {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 8px !important;
+        overflow: visible !important;
+    }
+
+    .ss-img {
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+}
+</style>
+
+<!-- 3. JAVASCRIPT (Logic) -->
+<script>
+async function sharePortfolio() {
+    const shareData = {
+        title: '<%= data.name %> | Portfolio',
+        text: '<%= data.summary %>',
+        url: window.location.href
+    };
+
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            const tempInput = document.createElement("input");
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Portfolio link copied to clipboard!");
+        }
+    } catch (err) {
+        console.error("Error sharing:", err);
+    }
+}
+</script>
+
+
+<!-- 3. JAVASCRIPT (Logic) -->
+<script>
+async function sharePortfolio() {
+    const shareData = {
+        title: '<%= data.name %> | Portfolio',
+        text: '<%= data.summary %>',
+        url: window.location.href
+    };
+
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            const tempInput = document.createElement("input");
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Portfolio link copied to clipboard!");
+        }
+    } catch (err) {
+        console.error("Error sharing:", err);
+    }
+}
+</script>
