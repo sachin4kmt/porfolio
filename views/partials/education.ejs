@@ -1,15 +1,14 @@
-<section id="education" style="margin-top: 80px; padding-bottom: 50px;">
+<section id="education" style="margin-top: 80px; padding-bottom: 50px; overflow: hidden;">
     <div class="education-layout">
         
-        <!-- LEFT COLUMN: EDUCATION TIMELINE -->
         <div class="edu-main">
-            <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 2.5rem); display: flex; align-items: center; gap: 15px; margin-bottom: 40px;">
+            <h2 class="section-title" style="font-size: clamp(1.8rem, 5vw, 2.5rem); display: flex; align-items: center; gap: 15px; margin-bottom: 40px; color: var(--white);">
                <span class="accent-num">04.</span> Education
             </h2>
     
             <div class="education-list">
                 <% data.education.forEach(function(edu, i) { %>
-                    <div class="edu-item reveal" style="transition-delay: <%= i * 0.1 %>s">
+                    <div class="edu-item reveal" style="transition-delay: <%= i * 0.1 %>s; box-sizing: border-box;">
                         <div class="edu-visual">
                             <div class="edu-dot">
                                 <i class="fas fa-graduation-cap"></i>
@@ -26,10 +25,10 @@
                             <h3 class="edu-degree-title"><%= edu.degree %></h3>
                             <p class="edu-university-name"><%= edu.university %></p>
                             
-                            <% if(edu.college) { %>
+                            <% if(edu.collage || edu.college) { %>
                                 <div class="edu-college-box">
                                     <i class="fas fa-university"></i>
-                                    <span><%= edu.college %></span>
+                                    <span><%= edu.collage || edu.college %></span>
                                 </div>
                             <% } %>
 
@@ -49,15 +48,22 @@
     /* Desktop Grid Layout */
     .education-layout {
         display: grid;
-        grid-template-columns: 1.8fr 1fr;
-        gap: 50px;
+        grid-template-columns: 1fr; /* Default fluid single column strategy to block truncation */
+        gap: 30px;
+    }
+
+    @media (min-width: 992px) {
+        .education-layout {
+            grid-template-columns: 1.8fr 1fr;
+            gap: 50px;
+        }
     }
 
     .accent-num { color: var(--flutter-cyan); }
     
     /* Timeline Logic */
-    .education-list { display: flex; flex-direction: column; gap: 10px; }
-    .edu-item { display: flex; gap: 20px; }
+    .education-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .edu-item { display: flex; gap: 20px; width: 100%; box-sizing: border-box; }
 
     .edu-visual {
         display: flex;
@@ -95,7 +101,8 @@
         border-radius: 16px;
         flex-grow: 1;
         transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        min-width: 0; /* Prevents overflow */
+        min-width: 0; /* Prevents text elements pushing box outside screen margins */
+        box-sizing: border-box;
     }
 
     .edu-card:hover {
@@ -110,6 +117,7 @@
         align-items: center;
         margin-bottom: 12px;
         gap: 10px;
+        flex-wrap: wrap; /* Elements wrap cleanly instead of breaking constraints on tiny screens */
     }
 
     .edu-type-tag {
@@ -124,7 +132,7 @@
     }
 
     .edu-timeline { 
-        color: #666; 
+        color: var(--text-dim); 
         font-family: 'Space Mono', monospace; 
         font-size: 0.8rem; 
         white-space: nowrap;
@@ -135,6 +143,7 @@
         color: #fff; 
         margin-bottom: 6px; 
         line-height: 1.3;
+        font-weight: 700;
     }
 
     .edu-university-name { 
@@ -154,29 +163,31 @@
         padding: 10px 12px;
         border-radius: 10px;
         margin-bottom: 15px;
+        box-sizing: border-box;
     }
-    .edu-college-box i { margin-top: 3px; color: var(--flutter-cyan); opacity: 0.7; }
+    .edu-college-box i { margin-top: 3px; color: var(--flutter-cyan); opacity: 0.7; flex-shrink: 0; }
+    .edu-college-box span { word-break: break-word; }
 
-    .edu-spec-row { font-size: 0.85rem; display: flex; flex-wrap: wrap; }
-    .edu-spec-row .label { color: #555; margin-right: 8px; }
-    .edu-spec-row .value { color: var(--flutter-cyan); font-weight: 500; }
-
-    /* Responsive Queries */
-    @media (max-width: 992px) {
-        .education-layout { grid-template-columns: 1fr; gap: 30px; }
-    }
+    .edu-spec-row { font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 4px; }
+    .edu-spec-row .label { color: #555; }
+    .edu-spec-row .value { color: var(--flutter-cyan); font-weight: 500; word-break: break-word; }
 
     @media (max-width: 600px) {
         #education { margin-top: 60px !important; }
-        .edu-item { gap: 15px; }
+        .edu-item { gap: 12px; }
         .edu-dot { width: 34px; height: 34px; font-size: 0.8rem; }
         .edu-card { padding: 16px; }
         .edu-card-header { flex-direction: row; justify-content: space-between; }
         .edu-timeline { font-size: 0.75rem; }
-        .edu-university-name { font-size: 0.85rem; }
+        .edu-university-name { font-size: 0.85rem; margin-bottom: 10px; }
     }
 
-    /* Print Logic (Maintain Dark Background as per previous requirement) */
+    @media (max-width: 400px) {
+        /* Ultimate narrow viewport fallback wrap */
+        .edu-card-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+
+    /* Print Logic */
     @media print {
         #education { margin-top: 30px !important; }
         .edu-card { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; }

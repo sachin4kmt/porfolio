@@ -1,27 +1,101 @@
 <script>
+    // Registering internal GSAP context wrapper safely
     gsap.registerPlugin(ScrollTrigger);
 
-    // Scroll reveal for sections
-    gsap.utils.toArray(".reveal").forEach((elem) => {
-        gsap.to(elem, {
-            scrollTrigger: { 
-                trigger: elem, 
-                start: "top 85%", 
-                toggleActions: "play none none none" 
-            },
-            opacity: 1, 
-            y: 0, 
-            duration: 1, 
-            ease: "power3.out"
+    // Document loading sequence protection trigger
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // Mobile performance optimization: Config context settings
+        ScrollTrigger.config({
+            limitCallbacks: true,
+            ignoreMobileResize: true // iOS/Android address bar show/hide hone par jumps prevent karega
+        });
+
+        // 1. Scroll reveal optimization for component sections
+        gsap.utils.toArray(".reveal").forEach((elem) => {
+            gsap.to(elem, {
+                scrollTrigger: { 
+                    trigger: elem, 
+                    start: "top 88%", // Thoda room badhaya taaki dynamic mobile renders par visual instantly clear dikhe
+                    toggleActions: "play none none none" 
+                },
+                opacity: 1, 
+                y: 0, 
+                duration: 0.85, // Highly fluid dynamic response rate
+                ease: "power3.out",
+                clearProps: "transform,opacity" // Animation end hote hi state clear karega taaki position constraints responsive rahein
+            });
+        });
+
+        // 2. Hero Component Entry Animation sequence
+        gsap.from("h1", { 
+            duration: 1.4, 
+            y: 40, 
+            opacity: 0, 
+            stagger: 0.15, 
+            ease: "expo.out",
+            clearProps: "all" // Global absolute position values reset, structure break completely safe
         });
     });
 
-    // Hero Entry Animation
-    gsap.from("h1", { 
-        duration: 1.5, 
-        y: 50, 
-        opacity: 0, 
-        stagger: 0.2, 
-        ease: "expo.out" 
-    });
+    // ----------------------------------------------------
+    // PHONE MOCKUP SLIDER ENGINE LOGIC (Fluid Percentage Support)
+    // ----------------------------------------------------
+    if (typeof window.projectSlideTracker === 'undefined') {
+        window.projectSlideTracker = {};
+    }
+
+    function slidePhone(projectIndex, directMultiplier) {
+        const structuralSlider = document.getElementById('phone-slider-' + projectIndex);
+        if (!structuralSlider) return;
+
+        const slidesElements = structuralSlider.getElementsByClassName('phone-screen-img');
+        const maxLimitSlides = slidesElements.length;
+        if (maxLimitSlides <= 1) return;
+
+        if (typeof window.projectSlideTracker[projectIndex] === 'undefined') {
+            window.projectSlideTracker[projectIndex] = 0;
+        }
+
+        let targetingSlide = window.projectSlideTracker[projectIndex] + directMultiplier;
+        if (targetingSlide >= maxLimitSlides) {
+            targetingSlide = 0;
+        } else if (targetingSlide < 0) {
+            targetingSlide = maxLimitSlides - 1;
+        }
+
+        jumpToSlide(projectIndex, targetingSlide);
+    }
+
+    function jumpToSlide(projectIndex, targetedIndex) {
+        const structuralSlider = document.getElementById('phone-slider-' + projectIndex);
+        if (!structuralSlider) return;
+
+        window.projectSlideTracker[projectIndex] = targetedIndex;
+        
+        // Safe fluid shift translation percentages
+        const dynamicTranslateValue = -(targetedIndex * 100);
+        structuralSlider.style.transform = 'translateX(' + dynamicTranslateValue + '%)';
+    }
+
+    function toggleDescription(dynamicElementIdx) {
+        const excerptObj = document.getElementById('desc-short-' + dynamicElementIdx);
+        const holisticObj = document.getElementById('desc-full-' + dynamicElementIdx);
+        const actionLabel = document.getElementById('btn-text-' + dynamicElementIdx);
+        const actionArrow = document.getElementById('btn-icon-' + dynamicElementIdx);
+
+        if (!excerptObj || !holisticObj) return;
+
+        if (holisticObj.style.display === 'block') {
+            holisticObj.style.display = 'none';
+            excerptObj.style.display = 'block';
+            if(actionLabel) actionLabel.innerText = 'Read More';
+            if(actionArrow) actionArrow.className = 'fas fa-chevron-down';
+        } else {
+            holisticObj.style.display = 'block';
+            excerptObj.style.display = 'none';
+            if(actionLabel) actionLabel.innerText = 'Read Less';
+            if(actionArrow) actionArrow.className = 'fas fa-chevron-up';
+        }
+    }
 </script>

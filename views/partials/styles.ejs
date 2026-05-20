@@ -1,160 +1,197 @@
 <style>
     :root {
-        /* Premium Flutter Palette */
+        /* Premium Fluid Flutter Palette Matrix */
         --flutter-blue: #02569B;
         --flutter-cyan: #01C8FF;
-        --bg: #050a0f;
-        --card-bg: rgba(255, 255, 255, 0.02);
+        --flutter-sky: #40D1FB; /* Sky fallback patch matched */
+        --bg-dark: #050a0f;     /* Linked to match your dark background */
+        --bg-card: rgba(255, 255, 255, 0.02); /* Universal consistent token sync */
         --glass-border: rgba(255, 255, 255, 0.08);
-        --text-main: #ffffff;
+        --white: #ffffff;       /* Consistent typography alignment white base */
         --text-dim: #a0a0a0;
-        --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    /* Strict Reset Engine preventing accidental horizontal window scrolling */
+    * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+        -webkit-tap-highlight-color: transparent; 
+    }
     
     body { 
-        background-color: var(--bg); 
-        color: var(--text-main); 
+        background-color: var(--bg-dark); 
+        color: var(--white); 
         font-family: 'Plus Jakarta Sans', sans-serif; 
         overflow-x: hidden;
         line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Ambient Glow (Optimized for Mobile) */
+    /* Ambient Neon Glow Overlay (Optimized performance for mobile viewports) */
     body::before {
-        content: ''; position: fixed; top: -10%; left: -10%; width: 50%; height: 50%;
-        background: radial-gradient(circle, rgba(1, 200, 255, 0.07) 0%, transparent 70%); 
-        z-index: -1; pointer-events: none;
+        content: ''; 
+        position: fixed; 
+        top: -10%; 
+        left: -10%; 
+        width: 100vw; 
+        height: 100vh;
+        background: radial-gradient(circle at 20% 20%, rgba(1, 200, 255, 0.05) 0%, transparent 50%); 
+        z-index: -1; 
+        pointer-events: none;
     }
 
-    /* Responsive Container */
+    /* Fluid Responsive Grid Layout Container */
     .container { 
         width: 100%;
         max-width: 1200px; 
         margin: 0 auto; 
-        padding: 0 40px; 
+        padding: 0 clamp(16px, 4vw, 40px); /* Dynamic edge scaling prevents extreme squeezing on mobile */
+        box-sizing: border-box;
     }
 
-    /* Project Cards Logic */
+    /* Project Layout Core Glass Panels */
     .project-card { 
-        background: var(--card-bg); 
+        background: var(--bg-card); 
         border: 1px solid var(--glass-border); 
         border-radius: 32px; 
-        padding: 45px; 
+        padding: clamp(20px, 5vw, 45px); 
         display: grid;
-        grid-template-columns: 1.2fr 0.8fr; /* Desktop: Content | Mockup */
-        gap: 50px; 
-        margin-bottom: 60px; 
+        grid-template-columns: 1.2fr 0.8fr; /* Desktop default side placement ratio */
+        gap: clamp(24px, 4vw, 50px); 
+        margin-bottom: 40px; 
         backdrop-filter: blur(15px); 
-        transition: var(--transition); 
+        -webkit-backdrop-filter: blur(15px);
+        transition: var(--transition-smooth); 
         overflow: hidden;
+        min-width: 0; /* Content internal bounding boxes locked */
+        box-sizing: border-box;
     }
 
-    .project-card:hover { 
-        border-color: rgba(1, 200, 255, 0.4); 
-        transform: translateY(-8px);
-        background: rgba(255, 255, 255, 0.04);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    @media (min-width: 992px) {
+        .project-card:hover { 
+            border-color: rgba(1, 200, 255, 0.35); 
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
     }
 
-    /* Gallery (Standardize scroll) */
+    /* Horizontal Gallery Handling Axis */
     .screenshot-gallery { 
         display: flex; 
         gap: 12px; 
         overflow-x: auto; 
-        margin: 25px 0; 
-        padding-bottom: 10px; 
+        margin: 20px 0; 
+        padding-bottom: 8px; 
         width: 100%;
         scrollbar-width: thin;
         scrollbar-color: var(--flutter-cyan) transparent;
-        -webkit-overflow-scrolling: touch; /* Smooth iOS scroll */
+        -webkit-overflow-scrolling: touch; 
     }
 
-    /* Phone Mockup (Adaptive Scaling) */
+    /* Adaptive Mobile Phone Frame Scale */
     .phone-mockup { 
         width: 100%;
-        max-width: 260px; 
-        aspect-ratio: 9/19;
+        max-width: 250px; 
+        aspect-ratio: 9 / 19;
         height: auto;
         background: #000; 
-        border: 10px solid #1a1a1a; 
-        border-radius: 40px; 
+        border: 10px solid #1e1e1e; 
+        border-radius: 38px; 
         justify-self: center;
         position: relative; 
         overflow: hidden; 
-        box-shadow: 0 30px 60px rgba(0,0,0,0.6); 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+        margin: 0 auto;
     }
 
-    /* Links & Buttons (Touch Friendly) */
-    .app-links { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+    /* Interactive Fluid Platform Buttons Matrix */
+    .app-links { 
+        display: flex; 
+        gap: 12px; 
+        margin-top: 25px; 
+        flex-wrap: wrap; 
+        width: 100%;
+    }
     
     .app-btn { 
-        flex: 1; /* Stretch on mobile */
-        min-width: 140px;
+        flex: 1 1 130px; /* Automated grid-stretching based on horizontal width presence */
+        min-width: 130px;
         justify-content: center;
         text-decoration: none; 
-        color: #fff; 
-        background: rgba(255, 255, 255, 0.03); 
+        color: var(--white); 
+        background: rgba(255, 255, 255, 0.02); 
         border: 1px solid var(--glass-border); 
-        padding: 14px 20px; 
-        border-radius: 16px; 
+        padding: 12px 18px; 
+        border-radius: 14px; 
         font-size: 0.85rem; 
         font-weight: 600;
         display: inline-flex; 
         align-items: center; 
-        gap: 10px; 
-        transition: var(--transition); 
+        gap: 8px; 
+        transition: var(--transition-smooth); 
+        box-sizing: border-box;
+    }
+    
+    .app-btn:hover {
+        background: var(--flutter-cyan);
+        color: #000;
+        border-color: var(--flutter-cyan);
     }
 
-    /* MOBILE BREAKPOINTS (The Real Update) */
+    /* ULTRA-RESPONSIVE VIEWPORT BREAKPOINTS ENGINES */
     @media (max-width: 992px) {
-        .container { padding: 0 25px; }
         .project-card { 
-            grid-template-columns: 1fr; /* Stack visually */
-            padding: 30px;
-            gap: 40px;
+            grid-template-columns: 1fr; /* Visual stack rotation */
+            gap: 35px;
         }
         .hero-wrapper {
             grid-template-columns: 1fr;
             text-align: center;
         }
+        .phone-mockup {
+            order: -1; /* Puts real live mockups above text layers for mobile visibility dominance */
+            max-width: 240px;
+        }
     }
 
     @media (max-width: 600px) {
-        h1 { font-size: 2.2rem !important; }
-        .section-title { font-size: 1.8rem !important; }
+        h1 { font-size: clamp(2rem, 7vw, 2.5rem) !important; }
+        .section-title { font-size: clamp(1.6rem, 6vw, 2rem) !important; }
         
         .project-card { 
-            border-radius: 24px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 16px;
         }
 
         .phone-mockup {
-            max-width: 220px; /* Smaller phone on mobile */
+            max-width: 210px; /* Smooth down-scaling matching narrow device bounds */
         }
 
         .app-btn {
-            width: 100%; /* Full width buttons on tiny screens */
-            flex: none;
+            width: 100%; 
+            flex: none; /* Instant linear stacking on extreme phone scopes */
         }
 
         .hero-meta {
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
         }
     }
 
-    /* Reveal Animation Active */
+    /* Fallback framework trigger for system transitions */
     .reveal.active {
         opacity: 1;
         transform: translateY(0);
     }
 
-    /* Print Fix (Ensures background isn't black when exporting PDF) */
+    /* Clean Dark Ambient Preservation during Prints */
     @media print {
-        body { background: #fff !important; color: #000 !important; }
-        .project-card { border: 1px solid #ddd !important; background: #fff !important; }
+        body { background: #040d16 !important; color: #fff !important; -webkit-print-color-adjust: exact !important; }
+        .project-card { border: 1px solid #333 !important; background: rgba(255,255,255,0.02) !important; }
     }
 </style>
