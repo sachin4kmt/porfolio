@@ -1,7 +1,10 @@
 <%- include('partials/head') %>
-<%- include('partials/styles') %>
 
-<body>
+<body
+    data-share-title="<%= data.name %> | Portfolio"
+    data-share-text="<%= data.summary %>"
+>
+    <%- include('partials/header') %>
     <div class="container">
         <%- include('partials/hero') %>
         <%- include('partials/projects') %>

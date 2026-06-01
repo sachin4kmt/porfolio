@@ -1,95 +1,17 @@
-<section id="technical-stack" style="margin-bottom: clamp(60px, 10vw, 100px); padding: 10px 0; overflow: hidden;">
-    <h2 class="section-title" style="font-size: clamp(1.8rem, 5vw, 2.5rem); display: flex; align-items: center; gap: 15px; color: var(--white); margin-bottom: 35px;">
-        <span style="color: var(--flutter-cyan);">02.</span> Technical Stack
-    </h2>
-    
-    <div class="skills-grid-wrapper" style="box-sizing: border-box; width: 100%;">
-        <% data.skills.forEach(function(skill, i) { %>
-            <div class="skill-card-box reveal" style="transition-delay: <%= i * 0.05 %>s; box-sizing: border-box;">
-                <div class="skills-hexagon-icon"></div>
-                
-                <p class="skill-title-txt"><%= skill.name %></p>
-                <p class="skill-level-badge mono"><%= skill.level %></p>
-            </div>
-        <% }); %>
+<section id="technical-stack">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="accent-num">02.</span> Technical Stack
+        </h2>
+
+        <div class="skills-grid-wrapper">
+            <% data.skills.forEach(function(skill, i) { %>
+                <div class="skill-card-box reveal" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="<%= i * 50 %>">
+                    <div class="skills-hexagon-icon"></div>
+                    <p class="skill-title-txt"><%= skill.name %></p>
+                    <p class="skill-level-badge mono"><%= skill.level %></p>
+                </div>
+            <% }); %>
+        </div>
     </div>
 </section>
-
-<style>
-    /* RESPONSIVE FLEX GRID FLUID SYSTEM */
-    .skills-grid-wrapper {
-        display: grid;
-        /* Optimized to auto-fit with lower boundary fallback preventing screen breakouts */
-        grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-        gap: clamp(12px, 3vw, 20px);
-        width: 100%;
-    }
-
-    /* Standard Card Box Structure using corrected background variable mapping */
-    .skill-card-box {
-        background: var(--bg-card, rgba(255, 255, 255, 0.03)); /* Fallback added to prevent missing variable bugs */
-        padding: clamp(15px, 4vw, 25px);
-        border-radius: 20px;
-        text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        min-width: 0; /* Strict fluid content lock boundaries */
-        position: relative;
-    }
-
-    /* Fluid Hexagon CSS processing vector */
-    .skills-hexagon-icon {
-        width: 36px;
-        height: 36px;
-        background: var(--flutter-cyan);
-        margin: 0 auto 12px;
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        opacity: 0.85;
-        transition: transform 0.3s ease;
-    }
-
-    .skill-title-txt {
-        font-weight: 700;
-        font-size: 0.95rem;
-        color: var(--white);
-        margin: 0 0 6px 0;
-        word-break: break-word; /* Locks layout boundaries from tracking long strings outside boundaries */
-        line-height: 1.4;
-    }
-
-    .skill-level-badge {
-        color: var(--flutter-sky);
-        font-size: 0.8rem;
-        font-weight: bold;
-        margin: 0;
-    }
-
-    /* Premium Micro Interactions Engine */
-    @media (min-width: 992px) {
-        .skill-card-box:hover {
-            border-color: var(--flutter-cyan);
-            background: rgba(2, 123, 227, 0.05);
-            transform: translateY(-4px);
-        }
-        .skill-card-box:hover .skills-hexagon-icon {
-            transform: rotate(30deg) scale(1.1);
-            background: var(--flutter-sky);
-        }
-    }
-
-    /* Special extra small low-end screens adaptation matrix code overrides */
-    @media (max-width: 360px) {
-        .skills-grid-wrapper {
-            /* Fallback rendering map structure layout for extreme tiny device displays */
-            grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
-            gap: 10px;
-        }
-        .skill-card-box {
-            padding: 12px 8px;
-            border-radius: 14px;
-        }
-        .skill-title-txt {
-            font-size: 0.85rem;
-        }
-    }
-</style>

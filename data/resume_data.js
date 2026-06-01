@@ -45,7 +45,7 @@ Key Features:
 🛡️ Secure Payments: A robust and secure payment experience designed for everyday spending.`,
            tech: ["GetX", "Partner Network", "Business Analytics"],
             android_link: "https://play.google.com/store/apps/details?id=com.pay.drop",
-            ios_link: "",
+            ios_link: "https://apps.apple.com/in/app/paydrop/id6760530649",
             logo: "/images/paydrop/logo.png", 
             screenshots: [
                 "/images/paydrop/1.jpg",
