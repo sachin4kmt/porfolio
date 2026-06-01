@@ -7,7 +7,8 @@ module.exports = {
     github: "github.com/sachin-flutter",
     linkedin: "linkedin.com/in/sachin4kmt",
     phone: "+91 9509998880",
-    
+    resume_pdf: "Sachin_Resume.pdf",
+
     // Aapke professional philosophy ke according summary
     summary: "Experienced Flutter developer with a passion for building high-performing, user-focused applications. Skilled in creating efficient, visually appealing solutions, I’m eager to bring fresh ideas and best practices to new challenges. Ready to make a meaningful impact by leveraging my expertise in Flutter to exceed expectations and drive results.",
 
